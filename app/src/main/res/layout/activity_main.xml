@@ -6,31 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="259dp"
-        android:layout_height="59dp"
-        android:background="#4EC59B"
-        android:onClick="onUrlSubmit"
-        android:text="OK"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RV"
+        android:layout_width="0dp"
+        android:layout_height="631dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/urlText"
-        app:layout_constraintVertical_bias="0.025"
-        tools:ignore="TextContrastCheck" />
-
-    <EditText
-        android:id="@+id/urlText"
-        android:layout_width="259dp"
-        android:layout_height="59dp"
-        android:ems="10"
-        android:hint="https://"
-        android:inputType="textUri"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.436" />
+        app:layout_constraintVertical_bias="1.0" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:contentDescription="TODO"
+        android:onClick="StartAddUrlActivity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.915"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.866"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+    <TextView
+        android:id="@+id/timeView"
+        android:layout_width="0dp"
+        android:layout_height="29dp"
+        android:gravity="center_vertical"
+        android:paddingStart="20dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/RV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
