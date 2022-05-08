@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.icu.text.Edits;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.Constraints;
 import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.ListenableWorker;
 import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
@@ -46,14 +48,19 @@ public class MainActivity extends AppCompatActivity {
         setAlarm();
         setPeriodicWork();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         FIleManager fm = new FIleManager(getApplicationContext());
         JSONObject json_root = fm.readFileString2JSON();
 
         TextView timeV = (TextView)findViewById(R.id.timeView);
         try {
-            String prefix = "Last update: ";
-            timeV.setText(prefix+json_root.getString("Time"));
-        } catch (JSONException e) {
+            String time = "Last update: " + json_root.getString("Time");
+            timeV.setText(time);
+        } catch (JSONException | RuntimeException e) {
             e.printStackTrace();
         }
 
@@ -62,11 +69,9 @@ public class MainActivity extends AppCompatActivity {
             JSONObject json_listUrls = json_root.getJSONObject("url");
             for(Iterator<String> it = json_listUrls.keys(); it.hasNext();){
                 String url = it.next();
-                if(!url.equals("")) {
-                    urlListToDisplay.add(url);
-                }
+                urlListToDisplay.add(url);
             }
-        } catch (JSONException e) {
+        } catch (JSONException | RuntimeException e) {
             e.printStackTrace();
         }
 
@@ -98,9 +103,9 @@ public class MainActivity extends AppCompatActivity {
                 this.getApplicationContext(), 234324243, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
-                        + (60 * 1000), //1M
-                43200000, //12Hr
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                System.currentTimeMillis() + (1000), //1S
+                3*60*60*1000, //3Hr
                 pendingIntent);
     }
 
