@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis() + (1000), //1S
+                System.currentTimeMillis() + (2*60*1000), //2m
                 3*60*60*1000, //3Hr
                 pendingIntent);
     }

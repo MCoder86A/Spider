@@ -32,13 +32,15 @@ public class AddUrlActivity extends AppCompatActivity {
                 try {
                     JSONObject urlList = jObj.getJSONObject("url");
                     if(!urlList.has(urlTextStr)){
-                        urlList.put(urlTextStr, "");
+                        String hash = new Crawler().getHash(urlTextStr);
+                        urlList.put(urlTextStr, hash);
                         fm.writeFileJSON2String(jObj);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                             getMainExecutor().execute(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(getApplicationContext(), "Url added", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(),
+                                            "Url added", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }

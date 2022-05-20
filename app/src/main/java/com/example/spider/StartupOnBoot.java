@@ -15,9 +15,9 @@ public class StartupOnBoot extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 context.getApplicationContext(), 234324243, i, 0);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
-                + (60*60 * 1000), //1Hr
-                43200000, //12Hr
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                System.currentTimeMillis() + (2*60*1000), //2m
+                3*60*60*1000, //3Hr
                 pendingIntent);
 
     }
